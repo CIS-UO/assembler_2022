@@ -1,4 +1,5 @@
-# Assembler Phase 1 
+# Introduction
+## Assembler Phase 1 
 
 Very few people can write machine code directly, and 
 fewer still would choose to.  When it is necessary to write
@@ -61,7 +62,7 @@ instead of writing
     x:  DATA  42
     ```
     
-# Assembler Phase II
+## Assembler Phase II
 
 I have provided ```assembler_phase2.py```, which takes the 
 *fully resolved* assembly code and produces object code.  By *fully
@@ -119,7 +120,7 @@ and we can reuse some other logic as well. We do not want to do it
 sloppily.  We will have to read the code carefully and adapt 
 it appropriately. 
 
-# Assembler Phase I
+# Your Task: Assembler Phase I
 
 Assembler Phase I will need to match each line of input using 
 regular expressions.  Some lines of assembly code  will already be in the form 
