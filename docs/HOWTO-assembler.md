@@ -1,4 +1,52 @@
 # Introduction
+
+## Background: Two-pass algorithms 
+
+Aside from the regular expressions, which can be a challenge 
+to read and write, I have found that for many students the 
+most challenging part of this project is the idea of a 
+*two-pass* algorithm, which gathers information in one loop
+over the data and then uses that information in a second 
+loop over the same data.  In this program, the first pass 
+is ```resolve``` and the second pass is the remainder 
+of ```transform```.   It is very often easier and more 
+efficient to solve a problem with a two-pass algorithm 
+than with a single "pass" over the data.  I will give you 
+several other small examples to solve with two-pass algorithms, 
+and you can expect a problem that requires a two-pass 
+algorithm on the final exam.
+
+What I often see in place of a simple two-pass algorithm is 
+a much more complicated algorithm with nested loops.  For example, 
+you could solve the problem of references to labels that appear 
+later in the assembly code by searching for each label while
+trying transform that reference.  That approach is both more 
+complicated and less efficient, often dramatically so.  
+For example, suppose instead of a separate loop through the 
+lines in the ```resolve``` function, we could have designed 
+the ```transform``` function something like this: 
+
+``` 
+transform(lines) -> instructions: 
+    for each line: 
+       if it references a label: 
+          for each line: 
+              if it defines the label: 
+                 address = here 
+                 break from inner loop
+          if we didn't find the address: 
+             some kind of error message 
+       transform the line into an instruction, 
+       using the address we found if needed 
+```
+
+This approach, searching for each label individually, 
+can take time that is *quadratic* in the length of the 
+assembly language program.  The approach we have taken, 
+with just one extra pass through the assembly code in 
+```resolve```, requires time only linear in the length 
+of the assembly language program.  
+
 ## Assembler Phase 1 
 
 Very few people can write machine code directly, and 
@@ -687,7 +735,7 @@ determine the address that each label represents.
 Next we can look at ```ASM_DATA_PAT```.  
 
 ```python
-# A data word in memory; not a DM2019W instruction
+# A data word in memory; not a DM2022W instruction
 #
 ASM_DATA_PAT = re.compile(r""" 
    \s* 
@@ -897,7 +945,7 @@ First let's fix up the header comment:
 
 ```python
 """
-Assembler Phase I for DM2019W assembly language.
+Assembler Phase I for DM2022W assembly language.
 
 This assembler produces fully resolved instructions,
 which may be the input of assembler_phase2.py. 
@@ -1914,53 +1962,6 @@ as it does here in
 where ```%esi``` is the target register and ```-8(%rbp)```
 is the memory address (here the offset is -8, so this 
 is like ```%rbp[-8]``` in the notation we have adopted). 
-
-## Two-pass algorithms 
-
-Aside from the regular expressions, which can be a challenge 
-to read and write, I have found that for many students the 
-most challenging part of this project is the idea of a 
-*two-pass* algorithm, which gathers information in one loop
-over the data and then uses that information in a second 
-loop over the same data.  In this program, the first pass 
-is ```resolve``` and the second pass is the remainder 
-of ```transform```.   It is very often easier and more 
-efficient to solve a problem with a two-pass algorithm 
-than with a single "pass" over the data.  I will give you 
-several other small examples to solve with two-pass algorithms, 
-and you can expect a problem that requires a two-pass 
-algorithm on the final exam.
-
-What I often see in place of a simple two-pass algorithm is 
-a much more complicated algorithm with nested loops.  For example, 
-you could solve the problem of references to labels that appear 
-later in the assembly code by searching for each label while
-trying transform that reference.  That approach is both more 
-complicated and less efficient, often dramatically so.  
-For example, suppose instead of a separate loop through the 
-lines in the ```resolve``` function, we could have designed 
-the ```transform``` function something like this: 
-
-``` 
-transform(lines) -> instructions: 
-    for each line: 
-       if it references a label: 
-          for each line: 
-              if it defines the label: 
-                 address = here 
-                 break from inner loop
-          if we didn't find the address: 
-             some kind of error message 
-       transform the line into an instruction, 
-       using the address we found if needed 
-```
-
-This approach, searching for each label individually, 
-can take time that is *quadratic* in the length of the 
-assembly language program.  The approach we have taken, 
-with just one extra pass through the assembly code in 
-```resolve```, requires time only linear in the length 
-of the assembly language program.  
 
 
 ## Copy-paste as a programming technique
