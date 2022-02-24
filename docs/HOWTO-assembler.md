@@ -538,7 +538,7 @@ processes the fields of an instruction, represented as a dict,
 or a data value.  That leaves how it gets those dicts in the 
 first place. 
 
-## How Assembler Phase 1 Parses Assembly Language
+## Assembler Phase 1 Parses Assembly Language
 
 At the very beginning of ```assemble``` we find the line 
 
