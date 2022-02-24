@@ -1,5 +1,5 @@
 """
-Assembler Phase II for DM2019W assembly language.
+Assembler Phase II for DM2022W assembly language.
 
 This assembler is for fully resolved instructions,
 which may be the output of assembler_phase1.py, which
@@ -88,7 +88,7 @@ DICT_NO_MATCH = { 'label': None, 'opcode': None, 'predicate': None,
 
 
 ###
-# Although the DM2019W instruction set is very simple, a source
+# Although the DM2022W instruction set is very simple, a source
 # line can still come in several forms.  Each form (even comments)
 # can start with a label.
 ###
@@ -152,7 +152,7 @@ ASM_FULL_PAT = re.compile(r"""
 # Defaults for values that ASM_FULL_PAT makes optional
 INSTR_DEFAULTS = [ ('predicate', 'ALWAYS'), ('offset', '0') ]
 
-# A data word in memory; not a DM2019W instruction
+# A data word in memory; not a DM2022W instruction
 #
 ASM_DATA_PAT = re.compile(r""" 
    \s* 
